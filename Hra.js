@@ -12,6 +12,8 @@ const attemptCount = document.getElementById('attemptCount');
 const restartBtn = document.getElementById('restartBtn');
 const historyList = document.getElementById('historyList');
 
+loadHistory();
+
 startBtn.addEventListener('click', function() {
     startGame();
 });
@@ -75,12 +77,45 @@ function makeGuess() {
    
 }
 
- function saveGame(){
-     const li = document.createElement('li');
-     li.className = 'history-item';
-     li.innerHTML = `Tajné číslo: ${secretNumber} | Počet pokusů: ${attempts}`;
-     historyList.appendChild(li);
- }
+ function saveGame() {
+    const game = {
+        date: new Date().toLocaleString('cs-CZ'),
+        secretNumber: secretNumber,
+        attempts: attempts,
+        guesses: currentGuessCount
+    };
+
+    let history = JSON.parse(localStorage.getItem('gameHistory')) || [];
+    history.unshift(game);
+    
+    if (history.length > 10) {
+        history = history.slice(0, 10);
+    }
+    
+    localStorage.setItem('gameHistory', JSON.stringify(history));
+    loadHistory();
+}
+
+function loadHistory() {
+    const history = JSON.parse(localStorage.getItem('gameHistory')) || [];
+    historyList.innerHTML = '';
+
+    if (history.length === 0) {
+        historyList.innerHTML = '<li>Zatím žádné hry...</li>';
+        return;
+    }
+
+    history.forEach(function(game) {
+        const li = document.createElement('li');
+        li.className = 'history-item';
+        li.innerHTML = `
+            ${game.date}<br>
+            Tajné číslo: ${game.secretNumber} | Počet pokusů: ${game.attempts}<br>
+            Tvé tipy: ${game.guesses.join(', ')}
+        `;
+        historyList.appendChild(li);
+    });
+}
 
  function restartGame(){
      startGame();
