@@ -34,3 +34,21 @@ input {
 #restartBtn {
     display: none;
 }
+
+.history-section {
+    margin-top: 40px;
+    text-align: left;
+}
+
+#historyList {
+  padding: 0;
+}
+
+.history-item {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid white;
+}  
+
+
+
