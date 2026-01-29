@@ -1,6 +1,7 @@
 
 let secretNumber = 0;
 let attempts = 0;
+let currentGuessCount = [];
 
 
 const startBtn = document.getElementById('startBtn');
@@ -9,7 +10,7 @@ const guessInput = document.getElementById('guessInput');
 const message = document.getElementById('message');
 const attemptCount = document.getElementById('attemptCount');
 const restartBtn = document.getElementById('restartBtn');
-
+const historyList = document.getElementById('historyList');
 
 startBtn.addEventListener('click', function() {
     startGame();
@@ -27,6 +28,7 @@ restartBtn.addEventListener('click', function() {
 
 
 function startGame() {
+    currentGuessCount = [];
     secretNumber = Math.floor(Math.random() * 100) + 1;
     attempts = 0;
     
@@ -49,6 +51,7 @@ function makeGuess() {
     }
 
     attempts++;
+    currentGuessCount.push(userGuess);
     attemptCount.textContent = attempts;
 
     
@@ -62,6 +65,7 @@ function makeGuess() {
         message.textContent = 'Skvělě Mistře!!! ' + 'tajné číslo je ' + secretNumber;
         message.style.display = 'block';
         guessInput.disabled = true;
+        saveGame();
         restartBtn.style.display = 'inline-block';
     }
 
@@ -71,7 +75,15 @@ function makeGuess() {
    
 }
 
+ function saveGame(){
+     const li = document.createElement('li');
+     li.className = 'history-item';
+     li.innerHTML = `Tajné číslo: ${secretNumber} | Počet pokusů: ${attempts}`;
+     historyList.appendChild(li);
+ }
+
  function restartGame(){
-        startGame();
-        guessInput.disabled = false;
+     startGame();
+     guessInput.disabled = false;
+     restartBtn.style.display = 'none';
     }
