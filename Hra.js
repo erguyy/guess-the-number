@@ -8,6 +8,7 @@ const gameForm = document.getElementById('gameForm');
 const guessInput = document.getElementById('guessInput');
 const message = document.getElementById('message');
 const attemptCount = document.getElementById('attemptCount');
+const restartBtn = document.getElementById('restartBtn');
 
 
 startBtn.addEventListener('click', function() {
@@ -18,6 +19,10 @@ startBtn.addEventListener('click', function() {
 gameForm.addEventListener('submit', function(e) {
     e.preventDefault();
     makeGuess();
+});
+
+restartBtn.addEventListener('click', function() {
+    restartGame();
 });
 
 
@@ -57,8 +62,16 @@ function makeGuess() {
         message.textContent = 'Skvělě Mistře!!! ' + 'tajné číslo je ' + secretNumber;
         message.style.display = 'block';
         guessInput.disabled = true;
+        restartBtn.style.display = 'inline-block';
     }
 
     guessInput.value = '';
     guessInput.focus();
+
+   
 }
+
+ function restartGame(){
+        startGame();
+        guessInput.disabled = false;
+    }

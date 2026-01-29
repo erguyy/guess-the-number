@@ -30,3 +30,7 @@ input {
     margin-right: 150px;
 
 }
+
+#restartBtn {
+    display: none;
+}
