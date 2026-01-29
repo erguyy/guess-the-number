@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hádej Číslo</title>
+    <link rel="stylesheet" href="Hra.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Hádej Číslo</h1>
+        
+        <div class="game-section">
+            <button id="startBtn">Začít hru</button>
+            
+            <form id="gameForm">
+                <input type="text" id="guessInput" placeholder="Zadej číslo od 1 do 100">
+                <button type="submit" id="submitBtn">Hádat</button>
+                <div class="attempts">Počet pokusů: <span id="attemptCount">0</span></div>
+            </form>
+
+            <div id="message"></div>
+        </div>
+
+
+    </div>
+
+    <script src="Hra.js"></script>
+</body>
+</html>
